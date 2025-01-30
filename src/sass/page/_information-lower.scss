@@ -1,0 +1,193 @@
+@use "global" as *;
+
+.information-lower__tab-list{
+    display: flex;
+    gap: rem(19);
+    flex-wrap: nowrap;
+    @include mq("md") {
+        position: relative;
+        gap: rem(90);
+        z-index: 100;
+    }
+}
+
+.information-lower__tab-button {
+    position: relative;
+    display: inline-block;
+    text-align: center;
+    color: $lightblue;
+    background-color: $lightblue2;
+    width: 100%;
+    font-size: rem(14);
+    line-height: 1.4285;
+    padding: rem(5.28) rem(12.8);
+    writing-mode: horizontal-tb;
+    transition: all .3s;
+    box-shadow: rem(2) rem(2) rem(4) rgba(0, 0, 0, .25);
+    cursor: pointer;
+    @include mq("md") {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1.4583;
+        white-space: nowrap;
+        padding: rem(12.8);
+        font-size: rem(24);
+        box-shadow: none;
+}
+}
+
+.information-lower__tab-button:hover {
+    background-color: $lightblue;
+    color: $white;
+}
+
+
+.information-lower__tab-contents {
+    margin-top: rem(45);
+}
+
+.information-lower__tab-button::before {
+    @include mq("md") {
+    position: relative;
+    z-index: 2;
+    content: url(../images/common/fish-1-pc.svg);
+    width: rem(64);
+    height: rem(64);
+    left: -2%;
+    padding-bottom: rem(12);
+    }
+}
+
+.information-lower__tab-button:hover::before{
+    @include mq("md") {
+    position: relative;
+    z-index: 2;
+    content: url(../images/common/fish-1-white.svg);
+    width: rem(64);
+    height: rem(64);
+    left: -2%;
+    padding-bottom: rem(12);
+    }
+}
+
+
+.information-lower__tab-button.is-active::before {
+    @include mq("md") {
+    position: relative;
+    z-index: 10;
+    content: url(../images/common/fish-1-white.svg);
+    width: rem(64);
+    height: rem(64);
+    left: -2%;
+    padding-bottom: rem(12);
+}
+}
+
+
+
+.information-lower__tab-button:hover {
+    background-color: $lightblue;
+    box-shadow: rem(0) rem(4) rem(4) rgba(0, 0, 0, .25);
+    color: $white;
+}
+
+.information-lower__tab-button.is-active {
+    background-color: $lightblue;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $white;
+    box-shadow: rem(0) rem(4) rem(4) rgba(0, 0, 0, .25);
+}
+
+
+
+.information-lower__contents {
+    margin-top: rem(16);
+    @include mq("md") {
+        margin-top: rem(24);
+    }
+}
+
+.information-lower__contents-content {
+    display: none;
+}
+
+.information-lower__contents-content.is-active {
+    display: inline-block;
+    border: 1px solid $lightblue;
+    padding: rem(24);
+}
+
+.information-lower__card {
+    display: inline-block;
+}
+
+.information-lower__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: rem(8);
+    @include mq("md") {
+        flex-direction: row;
+        gap: rem(50);
+    }
+}
+
+
+.information-lower__img {
+    position: relative;
+    width: 100%;
+    height: auto;
+    @include mq("md") {
+        width: rem(492);
+    }
+}
+
+.information-lower__img img{
+    display: inline-block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 297 / 189;
+    object-fit: cover;
+    @include mq("md") {
+        aspect-ratio: 540 / 356;
+    }
+}
+
+.information-lower__text-container {
+    display: block;
+    text-align: left;
+    width: 100%;
+    color: $blue;
+    @include mq("md") {
+        width: rem(492);
+    }
+}
+
+.information-lower__title-sub {
+    font-family: $base-font-family;
+    font-size: rem(24);
+    line-height: 1;
+    color: $blue;
+    font-weight: $bold;
+    border-bottom: 1px solid $lightblue;
+    padding-bottom: rem(4);
+    @include mq("md") {
+        line-height: 1;
+        padding-bottom: rem(8);
+        font-size: rem(24);
+    }
+}
+
+.information-lower__text {
+    margin-top: rem(10);
+    font-weight: $normal;
+    font-family: $base-font-family;
+    font-size: rem(16);
+    line-height: 1.5;
+    color: $black;
+}
