@@ -45,13 +45,6 @@
                 </div>
                 <div class="tab-voice__contents">
                     <ul class="tab-voice__contents-content">
-                        <?php
-                        $args = [
-                            "post_type" => "voice",
-                            "posts_per_page" => 6
-                        ];
-                        $the_query = new WP_Query($args);
-                        ?>
                         <?php if (have_posts()): ?>
                         <?php while (have_posts()): the_post(); ?>
                         <?php

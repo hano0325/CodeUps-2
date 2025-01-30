@@ -45,18 +45,8 @@
                 </div>
                 <div class="tab__campaign-contents">
                     <ul class="tab__campaign-contents-content">
-                        <?php
-                        //pagedの設定
-                        $paged = get_query_var('paged') ? get_query_var('paged') : 1;
-                        $args = [
-                            "post_type" => "campaign",
-                            'posts_per_page' => 4,
-                            'paged' => $paged,
-                        ];
-                        $the_query = new WP_Query($args);
-                        ?>
-                        <?php if ($the_query->have_posts()) : ?>
-                        <?php while ($the_query->have_posts()) : $the_query->the_post(); ?>
+                        <?php if (have_posts()) : ?>
+                        <?php while (have_posts()) : the_post(); ?>
                         <?php
                             $campaign_archives = SCF::get('campaign_archives'); ?>
                         <?php if (!empty($campaign_archives)) : ?>

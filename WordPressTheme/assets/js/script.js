@@ -9,6 +9,7 @@ jQuery(function ($) {
       openDrawer();
     }
   });
+
   // ページ内スクロール
   $(function () {
     // ヘッダーの高さ取得
@@ -27,8 +28,8 @@ jQuery(function ($) {
       // ヘッダーの高さ分下げる
       $(".js-hamburger").removeClass("is-active"); // ハンバーガーボタンの状態をリセット
       $(".js-drawer").removeClass("is-active"); // メニューを非表示状態にする
-      // メニューコンテナを非表示に設定
-      $(".js-drawer").css("display", "none");
+      $(".js-drawer").css("display", "none"); // メニューコンテナを非表示に設定
+
       var href = $(this).attr("href");
       scroll(href, headerHeight);
       return false;
@@ -40,10 +41,11 @@ jQuery(function ($) {
     console.log(href);
     var target = $(href == "#" || href == "" ? "html" : href);
     var position = target.offset().top - headerHeight;
-    $("body.html").animate({
+    $("html, body").animate({
       scrollTop: position
     }, speed, "swing");
   }
+
   // resizeイベント
   $(window).resize(function () {
     if (window.matchMedia("(min-width: 768px)").matches) {

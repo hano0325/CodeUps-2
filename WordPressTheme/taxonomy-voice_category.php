@@ -19,7 +19,6 @@
     <section class="campaign-lower campaign-lower-layout">
         <div class="campaign-lower__inner">
             <div class="campaign-lower__tab tab">
-                <!-- タブボタン -->
                 <div class="tab__list">
                     <?php
                     $current_term = get_queried_object();
@@ -28,7 +27,6 @@
                         'hide_empty' => true,
                     ));
                     ?>
-                    <!-- "ALL" タブボタン -->
                     <a class="tab__button <?php echo (!is_tax('voice_category')) ? 'is-active' : ''; ?>"
                         href="<?php echo esc_url(get_post_type_archive_link('voice')); ?>">
                         ALL
@@ -47,13 +45,6 @@
                 </div>
                 <div class="tab-voice__contents">
                     <ul class="tab-voice__contents-content">
-                        <?php
-                        $args = [
-                            "post_type" => "voice",
-                            "posts_per_page" => 6
-                        ];
-                        $the_query = new WP_Query($args);
-                        ?>
                         <?php if (have_posts()): ?>
                         <?php while (have_posts()): the_post(); ?>
                         <?php
