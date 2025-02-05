@@ -1,10 +1,10 @@
 @use "global" as *;
 
-.faq-list__item:not(:first-child){
+.faq-list__item:not(:first-child) {
     margin-top: rem(40);
 }
 
-.faq-list__item-question {
+.faq-list__item-question:nth-child(n) {
     position: relative;
     color: $white;
     background-color: $lightblue;
@@ -16,8 +16,8 @@
     cursor: pointer;
     font-weight: $normal;
     font-family: $base-font-family;
-    transition:all .3s;
-    @include mq(md){
+    transition: all .3s;
+    @include mq(md) {
         padding-top: rem(25);
         padding-right: rem(56);
         padding-bottom: rem(25);
@@ -27,7 +27,13 @@
     }
 }
 
+.faq-list__item .faq-list__item-answer {
+    display: block;
+}
 
+.faq-list__item .faq-list__item-question {
+    background-color: darken($lightblue, 10%);
+}
 
 .faq-list__item-question::before,
 .faq-list__item-question::after {
@@ -38,23 +44,18 @@
     width: rem(32);
     height: rem(1);
     background: $white;
-    transition:all .3s;
-    @include mq(md){
+    transition: all .3s;
+    @include mq(md) {
         top: 49%;
         right: 4%;
     }
 }
 
 .faq-list__item-question::before {
-    transform: rotate(90deg);
-}
-
-.faq-list__item-question.is-active:before {
     transform: rotate(180deg);
 }
 
-
-.faq-list__item-question.is-active:after {
+.faq-list__item-question::after {
     display: none;
 }
 
@@ -63,14 +64,14 @@
     padding-right: rem(16);
     padding-bottom: rem(24);
     padding-left: rem(16);
-    display: none;
+    display: block;
     font-size: rem(16);
     line-height: 1.4375;
     font-weight: $normal;
     font-family: $base-font-family;
     border: 1px solid $lightblue;
     color: $blue;
-    @include mq(md){
+    @include mq(md) {
         padding-top: rem(40);
         padding-right: rem(40);
         padding-bottom: rem(40);

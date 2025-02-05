@@ -120,8 +120,11 @@
                                         </a>
                                     </li>
                                     <?php endwhile; ?>
-                                    <?php endif; ?>
                                 </ul>
+                                <?php
+                                endif;
+                                wp_reset_postdata();
+                                ?>
                             </ul>
                             <div class="blog-lower-reviews blog-lower-reviews-layout">
                                 <div class="blog-lower-reviews__title title-side">
@@ -139,19 +142,19 @@
                                 </div>
                                 <div class="blog-lower-reviews__cards cards-reviews">
                                     <?php
-                                    $args = array(
-                                        'post_type'      => 'voice', // 投稿タイプ
-                                        'posts_per_page' => 1,       // 最新の2件を取得
-                                    );
-                                    $query = new WP_Query($args);
-
-                                    if ($query->have_posts()): ?>
+                                        $args = array(
+                                            'post_type'      => 'voice',
+                                            'posts_per_page' => 1,
+                                        );
+                                        $query = new WP_Query($args);
+                                        if ($query->have_posts()): ?>
                                     <ul class="cards-reviews">
                                         <?php while ($query->have_posts()): $query->the_post();
-                                    $gender_age = SCF::get('gender_age'); // カスタムフィールドを取得
-
-                                    if (!empty($gender_age)):
-                                    foreach ($gender_age as $voice): ?>
+                                        $term = get_field('category_voice');
+                                        $voice_age = get_field('voice_age');
+                                        $voice_gender = get_field('voice_gender');
+                                        $voice_text = get_field('voice_text');
+                                        ?>
                                         <li class="cards-reviews__card card-reviews">
                                             <a href="#" class="card-reviews__container">
                                                 <div class="card-reviews__img">
@@ -163,24 +166,22 @@
                                                     <?php endif; ?>
                                                 </div>
                                                 <div class="card-reviews__text-box">
-                                                    <?php if (!empty($voice['voice_title'])): ?>
                                                     <div class="card-reviews__profile">
-                                                        <?php echo esc_html($voice['voice_title']); ?>
+                                                        <?php echo esc_html($voice_age); ?>
+                                                        <?php echo esc_html($voice_gender); ?>
                                                     </div>
-                                                    <?php endif; ?>
-                                                    <?php if (!empty($voice['title_text'])): ?>
                                                     <p class="card-reviews__text">
-                                                        <?php echo esc_html($voice['title_text']); ?>
+                                                        <?php echo get_the_title(); ?>
                                                     </p>
-                                                    <?php endif; ?>
                                                 </div>
                                             </a>
                                         </li>
-                                        <?php endforeach;
-                                        endif;
-                                    endwhile; ?>
+                                        <?php endwhile; ?>
                                     </ul>
-                                    <?php endif; ?>
+                                    <?php
+                                    endif;
+                                    wp_reset_postdata();
+                                    ?>
                                     <div class="blog-lower-reviews__button">
                                         <a href="<?php echo esc_url(home_url('voice')); ?>" class="button">
                                             <div class="button__container">
@@ -208,23 +209,25 @@
                                 </div>
                                 <div class="blog-lower-campaign__contents">
                                     <?php
-                                    $args = array(
-                                        'post_type'      => 'campaign',
-                                        'posts_per_page' => 2,
-                                    );
-                                    $query = new WP_Query($args);
-                                    if ($query->have_posts()):
-                                        ?>
+                                $args = array(
+                                    'post_type'      => 'campaign',
+                                    'posts_per_page' => 2,
+                                    'orderby'        => 'date',
+                                    'order'          => 'DESC'
+                                );
+                                $query = new WP_Query($args);
+                                if ($query->have_posts()):
+                                ?>
                                     <ul class="blog-lower-campaign__contents-content">
                                         <?php
-                                        while ($query->have_posts()): $query->the_post();
-                                                $campaign_archives = SCF::get('campaign_archives');
-                                        if (!empty($campaign_archives)):
-                                        foreach ($campaign_archives as $campaign):
-                                        ?>
+                                    while ($query->have_posts()) :
+                                        $query->the_post();
+                                        $money_price = get_field('money_price');
+                                        $discount_price = get_field('discount_price');
+                                    ?>
                                         <li class="blog-lower-campaign__content-card">
-                                            <a href=" <?php echo esc_url(home_url('campaign')); ?>">
-                                                <div class=" blog-lower-campaign__container">
+                                            <a href="<?php echo esc_url(home_url('campaign')); ?>">
+                                                <div class="blog-lower-campaign__container">
                                                     <div class="blog-lower-campaign__img">
                                                         <?php if (has_post_thumbnail()): ?>
                                                         <?php the_post_thumbnail('full'); ?>
@@ -236,19 +239,19 @@
                                                     <div class="blog-lower-campaign__container-text">
                                                         <div class="blog-lower-campaign__text-box">
                                                             <p class="blog-lower-campaign__text-box-title">
-                                                                <?php echo esc_html($campaign['sub_title']); ?>
+                                                                <?php the_title(); ?>
                                                             </p>
                                                         </div>
                                                         <div class="blog-lower-campaign__money">
                                                             <p class="blog-lower-campaign__money-title">
-                                                                <?php echo esc_html($campaign['money_title']); ?>
+                                                                全部コミコミ(お一人様)
                                                             </p>
                                                             <div class="blog-lower-campaign__fee">
                                                                 <p class="blog-lower-campaign__discount">
-                                                                    ¥<?php echo esc_html($campaign['discount_price']); ?>
+                                                                    ¥<?php echo esc_html($money_price); ?>
                                                                 </p>
                                                                 <p class="blog-lower-campaign__main">
-                                                                    ¥<?php echo esc_html($campaign['main_price']); ?>
+                                                                    ¥<?php echo esc_html($discount_price); ?>
                                                                 </p>
                                                             </div>
                                                         </div>
@@ -256,13 +259,12 @@
                                                 </div>
                                             </a>
                                         </li>
-                                        <?php
-                                            endforeach;
-                                        endif;
-                                    endwhile;
-                                    ?>
+                                        <?php endwhile; ?>
                                     </ul>
-                                    <?php endif; ?>
+                                    <?php
+                                    endif;
+                                    wp_reset_postdata();
+                                    ?>
                                 </div>
                                 <div class="blog-lower-reviews__button">
                                     <a href="<?php echo esc_url(home_url('campaign')); ?>" class="button">

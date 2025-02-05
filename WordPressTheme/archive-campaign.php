@@ -48,9 +48,13 @@
                         <?php if (have_posts()) : ?>
                         <?php while (have_posts()) : the_post(); ?>
                         <?php
-                            $campaign_archives = SCF::get('campaign_archives'); ?>
-                        <?php if (!empty($campaign_archives)) : ?>
-                        <?php foreach ($campaign_archives as $campaign) : ?>
+                        $term = get_field('category_campaign');
+                        $money_price = get_field('money_price');
+                        $discount_price = get_field('discount_price');
+                        $campaign_text = get_field('campaign_text');
+                        $start_time = get_field('start_time');
+                        $end_time = get_field('end_time');
+                        ?>
                         <li class="tab__campaign-card">
                             <div class="tab__campaign-container">
                                 <div class="tab__campaign-img">
@@ -64,39 +68,39 @@
                                 <div class="tab__campaign-container-text">
                                     <div class="tab__campaign-text-box">
                                         <p class="tab__campaign-text-box-maintitle">
-                                            <?php echo esc_html($campaign['main_tab']); ?>
+                                            <?php echo $term->name; ?>
                                         </p>
                                         <p class="tab__campaign-text-box-subtitle">
-                                            <?php echo esc_html($campaign['sub_title']); ?>
+                                            <?php echo get_the_title(); ?>
                                         </p>
                                     </div>
                                     <div class="tab__campaign-money">
                                         <p class="tab__campaign-money-title">
-                                            <?php echo esc_html($campaign['money_title']); ?>
+                                            全部コミコミ(お一人様)
                                         </p>
                                         <div class="tab__campaign-fee">
                                             <p class="tab__campaign-discount">
-                                                ¥<?php echo esc_html($campaign['discount_price']); ?>
+                                                ¥<?php echo $money_price; ?>
                                             </p>
                                             <p class="tab__campaign-main">
-                                                ¥<?php echo esc_html($campaign['main_price']); ?>
+                                                ¥<?php echo $discount_price; ?>
                                             </p>
                                         </div>
                                         <p class="tab__campaign-text-main u-desktop">
-                                            <?php echo nl2br(esc_html($campaign['main_text'])); ?>
+                                            <?php echo $campaign_text; ?>
                                         </p>
                                         <div class="tab__campaign-date-container u-desktop">
                                             <p class="tab__campaign-date-time">
-                                                <?php echo esc_html($campaign['data_time']); ?>
+                                                <?php echo $start_time; ?><?php echo $end_time; ?>
                                             </p>
                                             <p class="tab__campaign-date-text">
-                                                <?php echo esc_html($campaign['data_text']); ?>
+                                                ご予約・お問い合わせはコチラ
                                             </p>
                                             <div class="tab__campaign-form-button">
                                                 <?php
-                                                $campaign_id = get_the_ID();
-                                                $contact_url = add_query_arg('campaign_id', $campaign_id, home_url('contact'));
-                                                ?>
+                                                    $campaign_id = get_the_ID();
+                                                    $contact_url = add_query_arg('campaign_id', $campaign_id, home_url('contact'));
+                                                    ?>
                                                 <a href="<?php echo esc_url($contact_url); ?>" class="button">
                                                     <div class="button__container">
                                                         <p>Contact us</p>
@@ -110,8 +114,6 @@
                                 </div>
                             </div>
                         </li>
-                        <?php endforeach; ?>
-                        <?php endif; ?>
                         <?php endwhile; ?>
                         <?php endif; ?>
                     </ul>

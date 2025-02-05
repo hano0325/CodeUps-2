@@ -20,23 +20,24 @@
         <div class="faq-lower__inner">
             <ul class="faq-list">
                 <?php
-            $args = [
-                "post_type" => "fq",
-                "posts_per_page" => 10
-            ];
-            $the_query = new WP_Query($args);
-            ?>
+                $args = [
+                    "post_type" => "faq",
+                    "posts_per_page" =>  -1
+                ];
+                $the_query = new WP_Query($args);
+                ?>
                 <?php if ($the_query->have_posts()) : ?>
                 <?php while ($the_query->have_posts()) : $the_query->the_post(); ?>
                 <?php
-            $faq_items = SCF::get('faq_items');
-            if (!empty($faq_items)) : ?>
-                <?php foreach ($faq_items as $index => $faq) : ?>
+                $post_id = get_the_ID();
+                $faq_items = SCF::get('faq_items,$post_id'); ?>
+                <?php if (!empty($faq_items)): ?>
+                <?php foreach ($faq_items as $faq): ?>
                 <li class="faq-list__item">
-                    <p class="faq-list__item-question <?php echo $index === 0 ? 'is-active' : ''; ?>">
+                    <p class="faq-list__item-question">
                         <?php echo esc_html($faq['faq_question']); ?>
                     </p>
-                    <p class=" faq-list__item-answer" style="display: <?php echo $index === 0 ? 'block' : 'none'; ?>;">
+                    <p class="faq-list__item-answer;">
                         <?php echo nl2br(esc_html($faq['faq_answer'])); ?>
                     </p>
                 </li>

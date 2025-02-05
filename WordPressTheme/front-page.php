@@ -52,46 +52,46 @@
                         <div class="campaign__wrapper swiper-wrapper">
                             <?php
                             $args = [
-                                "post_type" => "campaign",
-                                "posts_per_page" => 4,
-                                "orderby" => "date",
-                                "order" => "DESC"
+                            "post_type" => "campaign",
+                            "posts_per_page" => 4,
+                            "orderby" => "date",
+                            "order" => "DESC"
                             ];
                             $the_query = new WP_Query($args);
                             if ($the_query->have_posts()) :
                             while ($the_query->have_posts()) : $the_query->the_post();
-                                $campaign_archives = SCF::get('campaign_archives');
-                            if (!empty($campaign_archives)) :
-                            foreach ($campaign_archives as $campaign) : ?>
+                            $term = get_field('category_campaign');
+                            $discount_price = get_field('discount_price');
+                            $main_price = get_field('money_price');
+                                ?>
                             <div class="campaign__slide swiper-slide">
                                 <img src="<?php echo esc_url(get_the_post_thumbnail_url() ?: get_template_directory_uri() . '/assets/images/common/cats.jpg'); ?>"
-                                    alt="<?php the_title(); ?>" />
+                                    alt="猫の画像" />
                                 <div class="campaign__container-text text-container">
                                     <div class="campaign__text-box text-box">
                                         <p class="campaign__text-box-maintitle text-box-maintitle">
-                                            <?php echo esc_html($campaign['main_tab']); ?>
+                                            <?php echo esc_html($term->name); ?>
                                         </p>
                                         <p class="campaign__text-box-subtitle text-box-subtitle">
-                                            <?php echo esc_html($campaign['sub_title']); ?>
+                                            <?php echo get_the_title(); ?>
                                         </p>
                                     </div>
                                     <div class="campaign__money">
                                         <p class="campaign__money-title">
-                                            <?php echo esc_html($campaign['money_title']); ?>
+                                            全部コミコミ(お一人様)
                                         </p>
                                         <div class="campaign__fee">
                                             <p class="campaign__discount">
-                                                ¥<?php echo esc_html($campaign['discount_price']); ?>
+                                                ¥<?php echo esc_html($main_price); ?>
                                             </p>
                                             <p class="campaign__main">
-                                                ¥<?php echo esc_html($campaign['main_price']); ?>
+                                                ¥<?php echo esc_html($discount_price); ?>
                                             </p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <?php endforeach;
-                            endif;
+                            <?php
                             endwhile;
                             endif;
                             wp_reset_postdata();
@@ -248,30 +248,33 @@
                 </div>
                 <ul class="voice__cards cards-voice">
                     <?php
-                    $args = [
-                    "post_type" => "voice",
-                    "posts_per_page" => 2,
-                    "orderby" => "date",
-                    "order" => "DESC"
-                    ];
-                    $voice_query = new WP_Query($args);
-                    if ($voice_query->have_posts()) :
-                    while ($voice_query->have_posts()) : $voice_query->the_post();
-                    $gender_age = SCF::get('gender_age');
-                    if (!empty($gender_age)) :
-                    foreach ($gender_age as $voice) : ?>
+                            $args = [
+                                "post_type" => "voice",
+                                "posts_per_page" => 2,
+                                "orderby" => "date",
+                                "order" => "DESC"
+                            ];
+                            $voice_query = new WP_Query($args);
+                            if ($voice_query->have_posts()) :
+                            while ($voice_query->have_posts()) : $voice_query->the_post();
+                            $term = get_field('category_voice');
+                            $voice_age = get_field('voice_age');
+                            $voice_gender = get_field('voice_gender');
+                            $voice_text = get_field('voice_text');
+                            ?>
                     <li class="cards-voice__card card-voice">
                         <div class="card-voice__container">
                             <div class="card-voice__container-text">
                                 <div class="card-voice__text-box text-box">
                                     <p class="card-voice__profile">
-                                        <?php echo esc_html($voice['voice_title']); ?>
+                                        <?php echo esc_html($voice_age); ?>
+                                        <?php echo esc_html($voice_gender); ?>
                                     </p>
                                     <p class="card-voice__text-box-maintitle text-box-maintitle">
-                                        <?php echo esc_html($voice['category']); ?>
+                                        <?php echo esc_html($term->name); ?>
                                     </p>
                                     <p class="card-voice__text-box-subtitle text-box-subtitle">
-                                        <?php echo esc_html($voice['title_text']); ?>
+                                        <?php echo get_the_title(); ?>
                                     </p>
                                 </div>
                                 <div class="card-voice__content colorbox">
@@ -279,18 +282,17 @@
                                     <?php if (has_post_thumbnail()): ?>
                                     <?php the_post_thumbnail('full'); ?>
                                     <?php else: ?>
-                                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/common/cats.jpg"
+                                    <img src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/images/common/cats.jpg"
                                         alt="デフォルト画像" />
                                     <?php endif; ?>
                                 </div>
                             </div>
                             <p class="card-voice__block-subtext">
-                                <?php echo esc_html($voice['description']); ?>
+                                <?php echo esc_html($voice_text); ?>
                             </p>
                         </div>
                     </li>
-                    <?php endforeach;
-                    endif;
+                    <?php
                     endwhile;
                     endif;
                     wp_reset_postdata();

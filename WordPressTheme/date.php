@@ -45,8 +45,11 @@
                             </a>
                         </li>
                         <?php endwhile; ?>
-                        <?php endif; ?>
                     </ul>
+                    <?php
+                    endif;
+                    wp_reset_postdata();
+                    ?>
                 </div>
                 <aside class="blog-lower-slideber blog-lower-slideber-layout">
                     <div class="blog-lower-slideber__inner">
@@ -103,178 +106,180 @@
                                     </a>
                                 </li>
                                 <?php endwhile; ?>
-                                <?php endif; ?>
                             </ul>
-                        </ul>
-                        <div class="blog-lower-reviews blog-lower-reviews-layout">
-                            <div class="blog-lower-reviews__title title-side">
-                                <div class="title-side__container">
-                                    <div class="title-side__container-img-ber">
-                                        <img src="<?php echo get_template_directory_uri() ?>/assets/images/common/title-ber.svg"
-                                            alt="|">
+                            <?php
+                            endif;
+                            wp_reset_postdata();
+                            ?>
+                            <div class="blog-lower-reviews blog-lower-reviews-layout">
+                                <div class="blog-lower-reviews__title title-side">
+                                    <div class="title-side__container">
+                                        <div class="title-side__container-img-ber">
+                                            <img src="<?php echo get_template_directory_uri() ?>/assets/images/common/title-ber.svg"
+                                                alt="|">
+                                        </div>
+                                        <div class="title-side__container-img-fish">
+                                            <img src="<?php echo get_template_directory_uri() ?>/assets/images/common/fish-title.svg"
+                                                alt="">
+                                        </div>
+                                        <h2 class="title-side__main">口コミ</h2>
                                     </div>
-                                    <div class="title-side__container-img-fish">
-                                        <img src="<?php echo get_template_directory_uri() ?>/assets/images/common/fish-title.svg"
-                                            alt="">
-                                    </div>
-                                    <h2 class="title-side__main">口コミ</h2>
                                 </div>
-                            </div>
-                            <div class="blog-lower-reviews__cards cards-reviews">
-                                <?php
+                                <div class="blog-lower-reviews__cards cards-reviews">
+                                    <?php
                                     $args = array(
                                         'post_type'      => 'voice',
                                         'posts_per_page' => 1,
                                     );
                                     $query = new WP_Query($args);
                                     if ($query->have_posts()): ?>
-                                <ul class="cards-reviews">
-                                    <?php while ($query->have_posts()): $query->the_post();
-                                    $gender_age = SCF::get('gender_age');
-                                    if (!empty($gender_age)):
-                                    foreach ($gender_age as $voice): ?>
-                                    <li class="cards-reviews__card card-reviews">
-                                        <a href="#" class="card-reviews__container">
-                                            <div class="card-reviews__img">
-                                                <?php if (has_post_thumbnail()): ?>
-                                                <?php the_post_thumbnail('full'); ?>
-                                                <?php else: ?>
-                                                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/common/cats.jpg"
-                                                    alt="デフォルト画像">
-                                                <?php endif; ?>
-                                            </div>
-                                            <div class="card-reviews__text-box">
-                                                <?php if (!empty($voice['voice_title'])): ?>
-                                                <div class="card-reviews__profile">
-                                                    <?php echo esc_html($voice['voice_title']); ?>
-                                                </div>
-                                                <?php endif; ?>
-                                                <?php if (!empty($voice['title_text'])): ?>
-                                                <p class="card-reviews__text">
-                                                    <?php echo esc_html($voice['title_text']); ?>
-                                                </p>
-                                                <?php endif; ?>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <?php endforeach;
-                                        endif;
-                                    endwhile; ?>
-                                </ul>
-                                <?php endif; ?>
-                                <div class="blog-lower-reviews__button">
-                                    <a href="<?php echo esc_url(home_url('voice')); ?>" class="button">
-                                        <div class="button__container">
-                                            <p>View more</p>
-                                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/common/Vector.png"
-                                                alt="" class="button__arrow">
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <aside class="blog-lower-campaign blog-lower-campaign-layout">
-                            <div class="blog-lower-campaign__title title-side">
-                                <div class="title-side__container">
-                                    <div class="title-side__container-img-ber">
-                                        <img src="<?php echo get_template_directory_uri() ?>/assets/images/common/title-ber.svg"
-                                            alt="|">
-                                    </div>
-                                    <div class="title-side__container-img-fish">
-                                        <img src="<?php echo get_template_directory_uri() ?>/assets/images/common/fish-title.svg"
-                                            alt="">
-                                    </div>
-                                    <h2 class="title-side__main">キャンペーン</h2>
-                                </div>
-                            </div>
-                            <div class="blog-lower-campaign__contents">
-                                <?php
-                                $args = array(
-                                    'post_type'      => 'campaign',
-                                    'posts_per_page' => 2,
-                                );
-                                $query = new WP_Query($args);
-                                if ($query->have_posts()):
+                                    <ul class="cards-reviews">
+                                        <?php while ($query->have_posts()): $query->the_post();
+                                    $term = get_field('category_voice');
+                                    $voice_age = get_field('voice_age');
+                                    $voice_gender = get_field('voice_gender');
+                                    $voice_text = get_field('voice_text');
                                     ?>
-                                <ul class="blog-lower-campaign__contents-content">
-                                    <?php
-                                    while ($query->have_posts()): $query->the_post();
-                                            $campaign_archives = SCF::get('campaign_archives');
-                                    if (!empty($campaign_archives)):
-                                    foreach ($campaign_archives as $campaign):
-                                    ?>
-                                    <li class="blog-lower-campaign__content-card">
-                                        <a href=" <?php echo esc_url(home_url('campaign')); ?>">
-                                            <div class=" blog-lower-campaign__container">
-                                                <div class="blog-lower-campaign__img">
+                                        <li class="cards-reviews__card card-reviews">
+                                            <a href="#" class="card-reviews__container">
+                                                <div class="card-reviews__img">
                                                     <?php if (has_post_thumbnail()): ?>
                                                     <?php the_post_thumbnail('full'); ?>
                                                     <?php else: ?>
                                                     <img src="<?php echo get_template_directory_uri(); ?>/assets/images/common/cats.jpg"
-                                                        alt="デフォルト画像" />
+                                                        alt="デフォルト画像">
                                                     <?php endif; ?>
                                                 </div>
-                                                <div class="blog-lower-campaign__container-text">
-                                                    <div class="blog-lower-campaign__text-box">
-                                                        <p class="blog-lower-campaign__text-box-title">
-                                                            <?php echo esc_html($campaign['sub_title']); ?>
-                                                        </p>
+                                                <div class="card-reviews__text-box">
+                                                    <div class="card-reviews__profile">
+                                                        <?php echo esc_html($voice_age); ?>
+                                                        <?php echo esc_html($voice_gender); ?>
                                                     </div>
-                                                    <div class="blog-lower-campaign__money">
-                                                        <p class="blog-lower-campaign__money-title">
-                                                            <?php echo esc_html($campaign['money_title']); ?>
-                                                        </p>
-                                                        <div class="blog-lower-campaign__fee">
-                                                            <p class="blog-lower-campaign__discount">
-                                                                ¥<?php echo esc_html($campaign['discount_price']); ?>
+                                                    <p class="card-reviews__text">
+                                                        <?php echo get_the_title(); ?>
+                                                    </p>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <?php endwhile; ?>
+                                    </ul>
+                                    <?php
+                                    endif;
+                                    wp_reset_postdata();
+                                    ?>
+                                    <div class="blog-lower-reviews__button">
+                                        <a href="<?php echo esc_url(home_url('voice')); ?>" class="button">
+                                            <div class="button__container">
+                                                <p>View more</p>
+                                                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/common/Vector.png"
+                                                    alt="" class="button__arrow">
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <aside class="blog-lower-campaign blog-lower-campaign-layout">
+                                <div class="blog-lower-campaign__title title-side">
+                                    <div class="title-side__container">
+                                        <div class="title-side__container-img-ber">
+                                            <img src="<?php echo get_template_directory_uri() ?>/assets/images/common/title-ber.svg"
+                                                alt="|">
+                                        </div>
+                                        <div class="title-side__container-img-fish">
+                                            <img src="<?php echo get_template_directory_uri() ?>/assets/images/common/fish-title.svg"
+                                                alt="">
+                                        </div>
+                                        <h2 class="title-side__main">キャンペーン</h2>
+                                    </div>
+                                </div>
+                                <div class="blog-lower-campaign__contents">
+                                    <?php
+                                $args = array(
+                                    'post_type'      => 'campaign',
+                                    'posts_per_page' => 2,
+                                    'orderby'        => 'date',
+                                    'order'          => 'DESC'
+                                );
+                                $query = new WP_Query($args);
+                                if ($query->have_posts()):
+                                ?>
+                                    <ul class="blog-lower-campaign__contents-content">
+                                        <?php
+                                    while ($query->have_posts()) :
+                                        $query->the_post();
+                                        $money_price = get_field('money_price');
+                                        $discount_price = get_field('discount_price');
+                                    ?>
+                                        <li class="blog-lower-campaign__content-card">
+                                            <a href="<?php echo esc_url(home_url('campaign')); ?>">
+                                                <div class="blog-lower-campaign__container">
+                                                    <div class="blog-lower-campaign__img">
+                                                        <?php if (has_post_thumbnail()): ?>
+                                                        <?php the_post_thumbnail('full'); ?>
+                                                        <?php else: ?>
+                                                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/common/cats.jpg"
+                                                            alt="デフォルト画像" />
+                                                        <?php endif; ?>
+                                                    </div>
+                                                    <div class="blog-lower-campaign__container-text">
+                                                        <div class="blog-lower-campaign__text-box">
+                                                            <p class="blog-lower-campaign__text-box-title">
+                                                                <?php the_title(); ?>
                                                             </p>
-                                                            <p class="blog-lower-campaign__main">
-                                                                ¥<?php echo esc_html($campaign['main_price']); ?>
+                                                        </div>
+                                                        <div class="blog-lower-campaign__money">
+                                                            <p class="blog-lower-campaign__money-title">
+                                                                全部コミコミ(お一人様)
                                                             </p>
+                                                            <div class="blog-lower-campaign__fee">
+                                                                <p class="blog-lower-campaign__discount">
+                                                                    ¥<?php echo esc_html($money_price); ?>
+                                                                </p>
+                                                                <p class="blog-lower-campaign__main">
+                                                                    ¥<?php echo esc_html($discount_price); ?>
+                                                                </p>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </a>
-                                    </li>
+                                            </a>
+                                        </li>
+                                        <?php endwhile; ?>
+                                    </ul>
                                     <?php
-                                        endforeach;
-                                    endif;
-                                endwhile;
+                                endif;
+                                wp_reset_postdata();
                                 ?>
-                                </ul>
-                                <?php endif; ?>
-                            </div>
-                            <div class="blog-lower-reviews__button">
-                                <a href="<?php echo esc_url(home_url('campaign')); ?>" class="button">
-                                    <div class="button__container">
-                                        <p>View more</p>
-                                        <img src="<?php echo get_template_directory_uri() ?>/assets/images/common/Vector.png"
-                                            alt="" class="button__arrow" />
-                                    </div>
-                                </a>
-                            </div>
-                        </aside>
-                        <aside class="blog-lower-archive blog-lower-archive-layout">
-                            <div class="blog-lower-archive__title title-side">
-                                <div class="title-side__container">
-                                    <div class="title-side__container-img-ber">
-                                        <img src="<?php echo get_template_directory_uri() ?>/assets/images/common/title-ber.svg"
-                                            alt="|">
-                                    </div>
-                                    <div class="title-side__container-img-fish">
-                                        <img src="<?php echo get_template_directory_uri() ?>/assets/images/common/fish-title.svg"
-                                            alt="">
-                                    </div>
-                                    <h2 class="title-side__main">アーカイブ</h2>
                                 </div>
-                            </div>
-                            <div class="blog-lower-archive__container archive">
-                                <ul class="archive-list">
-                                    <?php
+                                <div class="blog-lower-reviews__button">
+                                    <a href="<?php echo esc_url(home_url('campaign')); ?>" class="button">
+                                        <div class="button__container">
+                                            <p>View more</p>
+                                            <img src="<?php echo get_template_directory_uri() ?>/assets/images/common/Vector.png"
+                                                alt="" class="button__arrow" />
+                                        </div>
+                                    </a>
+                                </div>
+                            </aside>
+                            <aside class="blog-lower-archive blog-lower-archive-layout">
+                                <div class="blog-lower-archive__title title-side">
+                                    <div class="title-side__container">
+                                        <div class="title-side__container-img-ber">
+                                            <img src="<?php echo get_template_directory_uri() ?>/assets/images/common/title-ber.svg"
+                                                alt="|">
+                                        </div>
+                                        <div class="title-side__container-img-fish">
+                                            <img src="<?php echo get_template_directory_uri() ?>/assets/images/common/fish-title.svg"
+                                                alt="">
+                                        </div>
+                                        <h2 class="title-side__main">アーカイブ</h2>
+                                    </div>
+                                </div>
+                                <div class="blog-lower-archive__container archive">
+                                    <ul class="archive-list">
+                                        <?php
                                         global $wpdb;
                                         $archives = $wpdb->get_results("SELECT DISTINCT YEAR(post_date) AS year, MONTH(post_date) AS month FROM $wpdb->posts WHERE post_status = 'publish' AND post_type = 'post' ORDER BY post_date DESC");
-
                                         $current_year = date('Y');
                                         $years = [];
                                         foreach ($archives as $archive) {
@@ -302,9 +307,10 @@
                                             echo '</li>';
                                         }
                                         ?>
-                                </ul>
-                            </div>
-                        </aside>
+                                    </ul>
+                                </div>
+                            </aside>
+                        </ul>
                     </div>
                 </aside>
             </div>

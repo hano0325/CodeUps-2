@@ -16,9 +16,9 @@
 </div>
 <?php get_template_part('breadcrumb'); ?>
 <main>
-    <section class="campaign-lower campaign-lower-layout">
-        <div class="campaign-lower__inner">
-            <div class="campaign-lower__tab tab">
+    <section class="voice-lower voice-lower-layout">
+        <div class="voice-lower__inner">
+            <div class="voice-lower__tab tab">
                 <div class="tab__list">
                     <?php
                     $is_archive_page = is_post_type_archive('voice');
@@ -48,21 +48,24 @@
                         <?php if (have_posts()): ?>
                         <?php while (have_posts()): the_post(); ?>
                         <?php
-                            $gender_age = SCF::get('gender_age'); ?>
-                        <?php if (!empty($gender_age)) : ?>
-                        <?php foreach ($gender_age as $voice) : ?>
+                            $term = get_field('category_voice');
+                            $voice_age = get_field('voice_age');
+                            $voice_gender = get_field('voice_gender');
+                            $voice_text = get_field('voice_text');
+                        ?>
                         <li class="tab-voice__card card-voice">
                             <div class="card-voice__container">
                                 <div class="card-voice__container-text">
                                     <div class="card-voice__text-box text-box">
                                         <p class="card-voice__profile">
-                                            <?php echo esc_html($voice['voice_title']); ?>
+                                            <?php echo $voice_age; ?>
+                                            <?php echo $voice_gender; ?>
                                         </p>
                                         <p class="card-voice__text-box-maintitle text-box-maintitle">
-                                            <?php echo esc_html($voice['category']); ?>
+                                            <?php echo $term->name; ?>
                                         </p>
                                         <p class="card-voice__text-box-subtitle text-box-subtitle">
-                                            <?php echo esc_html($voice['title_text']); ?>
+                                            <?php echo get_the_title(); ?>
                                         </p>
                                     </div>
                                     <div class="card-voice__content colorbox">
@@ -70,25 +73,23 @@
                                         <?php if (has_post_thumbnail()): ?>
                                         <?php the_post_thumbnail('full'); ?>
                                         <?php else: ?>
-                                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/common/cats.jpg"
+                                        <img src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/images/common/cats.jpg"
                                             alt="デフォルト画像" />
                                         <?php endif; ?>
                                     </div>
                                 </div>
                                 <p class="card-voice__block-subtext">
-                                    <?php echo esc_html($voice['description']); ?>
+                                    <?php echo $voice_text; ?>
                                 </p>
                             </div>
                         </li>
-                        <?php endforeach; ?>
-                        <?php endif; ?>
                         <?php endwhile; ?>
                         <?php endif; ?>
                     </ul>
                 </div>
-            </div>
-            <div class="voice-lower__pagenavi pagenavi">
-                <?php wp_pagenavi(); ?>
+                <div class="voice-lower__pagenavi pagenavi">
+                    <?php wp_pagenavi(); ?>
+                </div>
             </div>
         </div>
     </section>

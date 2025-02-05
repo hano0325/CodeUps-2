@@ -29,7 +29,6 @@
             ?>
             <?php if ($the_query->have_posts()) : ?>
             <?php while ($the_query->have_posts()) : $the_query->the_post(); ?>
-
             <div class="price-lower__list list-price" id="target<?php echo $counter; ?>">
                 <div class="list-price__container">
                     <picture>
