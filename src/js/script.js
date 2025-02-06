@@ -376,40 +376,51 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 $(document).ready(function () {
-  // クリックイベントでトグル
-  $(".faq-list__item-question").on("click", function () {
-    const $content = $(this).next();
+  $(".faq-list__item-question").each(function () {
+      const $question = $(this);
+      const $content = $question.next();
 
-    if (!$(this).hasClass("is-active")) {
-      $content.stop().slideDown(300); // 0.3秒で表示
-      $(this).addClass("is-active");
-    } else {
-      $content.stop().slideUp(300); // 0.3秒で隠す
-      $(this).removeClass("is-active");
-    }
+      // 初期状態で is-active を付与し、アンサーを表示
+      $question.addClass("is-active");
+      $content.show(); // display: block にする
+
+      // クリックイベント
+      $question.on("click", function () {
+          if ($question.hasClass("is-active")) {
+              // アンサーを隠す & is-activeを削除（アニメーション終了後）
+              $content.stop().slideUp(300, function () {
+                  $question.removeClass("is-active");
+              });
+          } else {
+              // アンサーを表示 & is-activeを追加（即時）
+              $content.stop().slideDown(300);
+              $question.addClass("is-active");
+          }
+      });
   });
 });
 
-// //   // WordPressキャンペーンのタブ切り替え
-// // タブクリック時の切り替え処理
-// tabs.forEach(function (tab) {
-//   tab.addEventListener("click", function (e) {
-//     e.preventDefault();
-//     var targetTab = this.getAttribute("data-number");
 
-//     // タブのアクティブ状態を更新
-//     tabs.forEach(function (t) {
-//       return t.classList.remove("is-active");
-//     });
-//     this.classList.add("is-active");
+//   // WordPressキャンペーンのタブ切り替え
+// タブクリック時の切り替え処理
+tabs.forEach(function (tab) {
+  tab.addEventListener("click", function (e) {
+    e.preventDefault();
+    var targetTab = this.getAttribute("data-number");
 
-//     // コンテンツのアクティブ状態を更新
-//     tabContents.forEach(function (content) {
-//       content.classList.toggle("is-active", content.id === targetTab);
-//     });
+    // タブのアクティブ状態を更新
+    tabs.forEach(function (t) {
+      return t.classList.remove("is-active");
+    });
+    this.classList.add("is-active");
 
-//     // URLクエリーパラメーターを更新
-//     var newUrl = "".concat(window.location.pathname, "?tab=").concat(targetTab);
-//     history.pushState(null, "", newUrl);
-//   });
-// });
+    // コンテンツのアクティブ状態を更新
+    tabContents.forEach(function (content) {
+      content.classList.toggle("is-active", content.id === targetTab);
+    });
+
+    // URLクエリーパラメーターを更新
+    var newUrl = "".concat(window.location.pathname, "?tab=").concat(targetTab);
+    history.pushState(null, "", newUrl);
+  });
+});

@@ -935,14 +935,6 @@ a {
 	transition: all 0.3s;
 }
 
-.faq-list__item .faq-list__item-answer {
-	display: block;
-}
-
-.faq-list__item .faq-list__item-question {
-	background-color: #316d71;
-}
-
 .faq-list__item-question::before,
 .faq-list__item-question::after {
 	background: #fff;
@@ -951,16 +943,20 @@ a {
 	position: absolute;
 	right: 4%;
 	top: 45%;
-	transition: all 0.3s;
+	transition: all 0.2s;
 	width: 2rem;
 }
 
 .faq-list__item-question::before {
+	transform: rotate(90deg);
+}
+
+.faq-list__item-question.is-active:before {
 	transform: rotate(180deg);
 }
 
 .faq-list__item-question::after {
-	display: none;
+	transform: rotate(180deg);
 }
 
 .faq-list__item-answer {
