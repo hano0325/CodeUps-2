@@ -111,7 +111,7 @@
                                             <div class="card-article__text-box">
                                                 <time datetime="<?php echo get_the_date('Y-m-d'); ?>"
                                                     class="card-article__date">
-                                                    <?php echo esc_html(get_the_date('Y/m/d')); ?>
+                                                    <?php echo esc_html(get_the_date('Y.m/d')); ?>
                                                 </time>
                                                 <p class="card-article__title">
                                                     <?php echo esc_html(get_the_title()); ?>
@@ -150,7 +150,6 @@
                                         if ($query->have_posts()): ?>
                                     <ul class="cards-reviews">
                                         <?php while ($query->have_posts()): $query->the_post();
-                                        $term = get_field('category_voice');
                                         $voice_age = get_field('voice_age');
                                         $voice_gender = get_field('voice_gender');
                                         $voice_text = get_field('voice_text');
@@ -209,22 +208,22 @@
                                 </div>
                                 <div class="blog-lower-campaign__contents">
                                     <?php
-                                $args = array(
-                                    'post_type'      => 'campaign',
-                                    'posts_per_page' => 2,
-                                    'orderby'        => 'date',
-                                    'order'          => 'DESC'
-                                );
-                                $query = new WP_Query($args);
-                                if ($query->have_posts()):
-                                ?>
+                                        $args = array(
+                                            'post_type'      => 'campaign',
+                                            'posts_per_page' => 2,
+                                            'orderby'        => 'date',
+                                            'order'          => 'DESC'
+                                        );
+                                        $query = new WP_Query($args);
+                                        if ($query->have_posts()):
+                                    ?>
                                     <ul class="blog-lower-campaign__contents-content">
                                         <?php
-                                    while ($query->have_posts()) :
-                                        $query->the_post();
-                                        $money_price = get_field('money_price');
-                                        $discount_price = get_field('discount_price');
-                                    ?>
+                                            while ($query->have_posts()) :
+                                                $query->the_post();
+                                                $money_price = get_field('money_price');
+                                                $discount_price = get_field('discount_price');
+                                            ?>
                                         <li class="blog-lower-campaign__content-card">
                                             <a href="<?php echo esc_url(home_url('campaign')); ?>">
                                                 <div class="blog-lower-campaign__container">

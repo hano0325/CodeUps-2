@@ -46,7 +46,6 @@
                         <?php if (have_posts()) : ?>
                         <?php while (have_posts()) : the_post(); ?>
                         <?php
-                        $term = get_field('category_campaign');
                         $money_price = get_field('money_price');
                         $discount_price = get_field('discount_price');
                         $campaign_text = get_field('campaign_text');
@@ -66,7 +65,7 @@
                                 <div class="tab__campaign-container-text">
                                     <div class="tab__campaign-text-box">
                                         <p class="tab__campaign-text-box-maintitle">
-                                            <?php echo $term->name; ?>
+                                            <?php get_cptui_taxonomies(); ?>
                                         </p>
                                         <p class="tab__campaign-text-box-subtitle">
                                             <?php echo the_title(); ?>

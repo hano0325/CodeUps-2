@@ -48,7 +48,6 @@
                         <?php if (have_posts()): ?>
                         <?php while (have_posts()): the_post(); ?>
                         <?php
-                            $term = get_field('category_voice');
                             $voice_age = get_field('voice_age');
                             $voice_gender = get_field('voice_gender');
                             $voice_text = get_field('voice_text');
@@ -62,7 +61,10 @@
                                             <?php echo $voice_gender; ?>
                                         </p>
                                         <p class="card-voice__text-box-maintitle text-box-maintitle">
-                                            <?php echo $term->name; ?>
+                                            <?php
+                                                $terms = get_the_terms(get_the_ID(), 'voice_category');
+                                                echo $terms && !is_wp_error($terms) ? esc_html(implode(', ', wp_list_pluck($terms, 'name'))) : 'カテゴリーなし';
+                                            ?>
                                         </p>
                                         <p class="card-voice__text-box-subtitle text-box-subtitle">
                                             <?php echo get_the_title(); ?>

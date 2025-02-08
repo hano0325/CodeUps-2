@@ -88,7 +88,7 @@
                                 );
                                 $popular_query = new WP_Query($popular_args);
                                 if ($popular_query->have_posts()):
-                                ?>
+                            ?>
                             <ul class="cards-article">
                                 <?php while ($popular_query->have_posts()): $popular_query->the_post(); ?>
                                 <li class="cards-article__card card-article">
@@ -103,9 +103,9 @@
                                             <?php endif; ?>
                                         </div>
                                         <div class="card-article__text-box">
-                                            <time datetime="<?php echo get_the_date('Y-m-d'); ?>"
+                                            <time datetime="<?php echo get_the_date('Y.m/d'); ?>"
                                                 class="card-article__date">
-                                                <?php echo esc_html(get_the_date('Y/m/d')); ?>
+                                                <?php echo esc_html(get_the_date('Y.m/d')); ?>
                                             </time>
                                             <p class="card-article__title"><?php echo esc_html(get_the_title()); ?>
                                             </p>

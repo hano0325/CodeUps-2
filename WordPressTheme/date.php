@@ -98,7 +98,7 @@
                                         <div class="card-article__text-box">
                                             <time datetime="<?php echo get_the_date('Y-m-d'); ?>"
                                                 class="card-article__date">
-                                                <?php echo esc_html(get_the_date('Y/m/d')); ?>
+                                                <?php echo esc_html(get_the_date('Y.m/d')); ?>
                                             </time>
                                             <p class="card-article__title"><?php echo esc_html(get_the_title()); ?>
                                             </p>

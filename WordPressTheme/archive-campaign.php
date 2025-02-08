@@ -48,12 +48,11 @@
                         <?php if (have_posts()) : ?>
                         <?php while (have_posts()) : the_post(); ?>
                         <?php
-                        $term = get_field('category_campaign');
-                        $money_price = get_field('money_price');
-                        $discount_price = get_field('discount_price');
-                        $campaign_text = get_field('campaign_text');
-                        $start_time = get_field('start_time');
-                        $end_time = get_field('end_time');
+                            $money_price = get_field('money_price');
+                            $discount_price = get_field('discount_price');
+                            $campaign_text = get_field('campaign_text');
+                            $start_time = get_field('start_time');
+                            $end_time = get_field('end_time');
                         ?>
                         <li class="tab__campaign-card">
                             <div class="tab__campaign-container">
@@ -68,7 +67,10 @@
                                 <div class="tab__campaign-container-text">
                                     <div class="tab__campaign-text-box">
                                         <p class="tab__campaign-text-box-maintitle">
-                                            <?php echo $term->name; ?>
+                                            <?php
+                                                $terms = get_the_terms(get_the_ID(), 'campaign_category');
+                                                echo $terms && !is_wp_error($terms) ? esc_html(implode(', ', wp_list_pluck($terms, 'name'))) : 'カテゴリーなし';
+                                            ?>
                                         </p>
                                         <p class="tab__campaign-text-box-subtitle">
                                             <?php echo get_the_title(); ?>

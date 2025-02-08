@@ -376,29 +376,23 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 $(document).ready(function () {
-  $(".faq-list__item-question").each(function () {
+  $(".faq-list__item-question").on("click", function () {
       const $question = $(this);
-      const $content = $question.next();
-
-      // 初期状態で is-active を付与し、アンサーを表示
-      $question.addClass("is-active");
-      $content.show(); // display: block にする
-
-      // クリックイベント
-      $question.on("click", function () {
-          if ($question.hasClass("is-active")) {
-              // アンサーを隠す & is-activeを削除（アニメーション終了後）
-              $content.stop().slideUp(300, function () {
-                  $question.removeClass("is-active");
-              });
-          } else {
-              // アンサーを表示 & is-activeを追加（即時）
-              $content.stop().slideDown(300);
-              $question.addClass("is-active");
-          }
+      const $answer = $question.next(".faq-list__item-answer");
+      
+      if ($question.hasClass("is-active")) {
+          // is-active クラスを削除し、回答部分を0.3秒で表示する
+          $question.removeClass("is-active");
+          $answer.stop().slideDown(300);
+      } else {
+          // is-active クラスを追加し、回答部分を0.3秒で非表示にする
+          $question.addClass("is-active");
+          $answer.stop().slideUp(300);
+      }
       });
   });
-});
+
+
 
 
 //   // WordPressキャンペーンのタブ切り替え
