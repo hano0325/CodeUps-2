@@ -14,7 +14,7 @@
         </div>
     </div>
 </div>
-<?php get_template_part('breadcrumb'); ?>
+<?php get_template_part('parts/breadcrumb'); ?>
 <main>
     <div class="thanks-page thanks-page-layout">
         <div class="thanks-page__inner inner">

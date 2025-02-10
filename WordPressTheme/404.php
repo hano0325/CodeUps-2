@@ -2,7 +2,7 @@
 <main>
     <div class="error">
         <div class="error__breadcrumb">
-            <?php get_template_part('breadcrumb-404'); ?>
+            <?php get_template_part('parts/breadcrumb'); ?>
         </div>
         <div class="error__inner">
             <div class="error__text-container">

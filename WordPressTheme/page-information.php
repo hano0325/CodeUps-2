@@ -14,7 +14,7 @@
         </div>
     </div>
 </div>
-<?php get_template_part('breadcrumb'); ?>
+<?php get_template_part('parts/breadcrumb'); ?>
 <main>
     <section class="information-lower information-lower-layout">
         <div class="information-lower__inner inner">

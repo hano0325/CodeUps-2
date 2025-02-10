@@ -14,7 +14,7 @@
         </div>
     </div>
 </div>
-<?php get_template_part('breadcrumb'); ?>
+<?php get_template_part('parts/breadcrumb'); ?>
 <main>
     <div class="sentence sentence-layout">
         <div class="sentence__inner">

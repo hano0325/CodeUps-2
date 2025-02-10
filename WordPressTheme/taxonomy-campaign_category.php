@@ -14,7 +14,7 @@
         </div>
     </div>
 </div>
-<?php get_template_part('breadcrumb'); ?>
+<?php get_template_part('parts/breadcrumb'); ?>
 <main>
     <section class="campaign-lower campaign-lower-layout">
         <div class="campaign-lower__inner">

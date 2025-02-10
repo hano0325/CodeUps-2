@@ -60,7 +60,6 @@
                             $the_query = new WP_Query($args);
                             if ($the_query->have_posts()) :
                             while ($the_query->have_posts()) : $the_query->the_post();
-                            $term = get_field('category_campaign');
                             $discount_price = get_field('discount_price');
                             $main_price = get_field('money_price');
                                 ?>
@@ -70,7 +69,10 @@
                                 <div class="campaign__container-text text-container">
                                     <div class="campaign__text-box text-box">
                                         <p class="campaign__text-box-maintitle text-box-maintitle">
-                                            <?php echo esc_html($term->name); ?>
+                                            <?php
+                                                $terms = get_the_terms(get_the_ID(), 'campaign_category');
+                                                echo $terms && !is_wp_error($terms) ? esc_html(implode(', ', wp_list_pluck($terms, 'name'))) : 'カテゴリーなし';
+                                            ?>
                                         </p>
                                         <p class="campaign__text-box-subtitle text-box-subtitle">
                                             <?php echo get_the_title(); ?>
@@ -257,7 +259,6 @@
                             $voice_query = new WP_Query($args);
                             if ($voice_query->have_posts()) :
                             while ($voice_query->have_posts()) : $voice_query->the_post();
-                            $term = get_field('category_voice');
                             $voice_age = get_field('voice_age');
                             $voice_gender = get_field('voice_gender');
                             $voice_text = get_field('voice_text');
@@ -271,7 +272,10 @@
                                         <?php echo esc_html($voice_gender); ?>
                                     </p>
                                     <p class="card-voice__text-box-maintitle text-box-maintitle">
-                                        <?php echo esc_html($term->name); ?>
+                                        <?php
+                                            $terms = get_the_terms(get_the_ID(), 'voice_category');
+                                            echo $terms && !is_wp_error($terms) ? esc_html(implode(', ', wp_list_pluck($terms, 'name'))) : 'カテゴリーなし';
+                                        ?>
                                     </p>
                                     <p class="card-voice__text-box-subtitle text-box-subtitle">
                                         <?php echo get_the_title(); ?>
