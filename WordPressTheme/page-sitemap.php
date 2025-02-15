@@ -96,7 +96,6 @@
                                 <?php
                                 $args = [
                                     "post_type" => "fee",
-                                    "orderby" => "date",
                                     "order" => "ASC",
                                     "posts_per_page" => -1,
                                 ];

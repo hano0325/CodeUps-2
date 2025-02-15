@@ -65,7 +65,10 @@
                                 <div class="tab__campaign-container-text">
                                     <div class="tab__campaign-text-box">
                                         <p class="tab__campaign-text-box-maintitle">
-                                            <?php get_cptui_taxonomies(); ?>
+                                            <?php
+                                                $terms = get_the_terms(get_the_ID(), 'campaign_category');
+                                                echo $terms && !is_wp_error($terms) ? esc_html(implode(', ', wp_list_pluck($terms, 'name'))) : 'カテゴリーなし';
+                                            ?>
                                         </p>
                                         <p class="tab__campaign-text-box-subtitle">
                                             <?php echo the_title(); ?>

@@ -22,7 +22,6 @@
             $counter = 1;
             $args = [
             "post_type" => "fee",
-            "orderby" => "date",
             "order" => "ASC",
              ];
             $the_query = new WP_Query($args);
@@ -71,8 +70,4 @@
             <?php endif; ?>
         </div>
     </section>
-
-
-
-
     <?php get_footer(); ?>

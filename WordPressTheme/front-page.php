@@ -54,8 +54,6 @@
                             $args = [
                             "post_type" => "campaign",
                             "posts_per_page" => 4,
-                            "orderby" => "date",
-                            "order" => "DESC"
                             ];
                             $the_query = new WP_Query($args);
                             if ($the_query->have_posts()) :
@@ -195,10 +193,7 @@
                 <ul class="blog__cards cards">
                     <?php
                     $args = [
-                        "post_type" => "post",
                         "posts_per_page" => 3,
-                        "orderby" => "date",
-                        "order" => "DESC"
                     ];
                     $blog_query = new WP_Query($args);
                     if ($blog_query->have_posts()) :
@@ -253,8 +248,6 @@
                             $args = [
                                 "post_type" => "voice",
                                 "posts_per_page" => 2,
-                                "orderby" => "date",
-                                "order" => "DESC"
                             ];
                             $voice_query = new WP_Query($args);
                             if ($voice_query->have_posts()) :
@@ -334,7 +327,6 @@
                         <?php
                         $args = [
                             "post_type" => "fee",
-                            "orderby" => "date",
                             "order" => "ASC"
                         ];
                         $price_query = new WP_Query($args);

@@ -18,10 +18,14 @@
 <main>
     <div class="sentence sentence-layout">
         <div class="sentence__inner">
+            <?php if (have_posts()) : ?>
+            <?php while (have_posts()) : the_post(); ?>
             <h2 class="sentence__title"><?php echo the_title(); ?></h2>
-            <dl class="sentence__items">
+            <div class="sentence__items">
                 <?php echo the_content(); ?>
-            </dl>
+            </div>
+            <?php endwhile; ?>
+            <?php endif; ?>
         </div>
     </div>
     <?php get_footer(); ?>

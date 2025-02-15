@@ -3,10 +3,10 @@
 .form__wrap {
   border-bottom: 1px dashed $lightblue;
   padding-bottom: rem(24);
-  @include mq(md){
+  @include mq(md) {
     display: flex;
     padding-bottom: rem(35.2);
-}
+  }
 }
 
 .form__wrap:first-child {
@@ -24,10 +24,10 @@
 }
 
 .form__wrap:nth-of-type(5) {
-	@include mq("md") {
-		display: flex;
-		align-items: center;
-	}
+  @include mq("md") {
+    display: flex;
+    align-items: center;
+  }
 }
 
 .form__label {
@@ -312,7 +312,6 @@
   z-index: 2;
 }
 
-
 .form__submit-button::before {
   content: "";
   position: absolute;
@@ -362,17 +361,17 @@
 
 .form-radio label {
   display: block;
-  @include mq(md){
-      display: inline-block;
-}
+  @include mq(md) {
+    display: inline-block;
+  }
 }
 
 .form-radio label:not(:first-of-type) {
   margin-top: prem(10);
-  @include mq(md){
-      margin-top: 0;
-      margin-left: prem(30);
-}
+  @include mq(md) {
+    margin-top: 0;
+    margin-left: prem(30);
+  }
 }
 
 .form-radio input {
@@ -386,8 +385,8 @@
   font-size: prem(15);
   line-height: 1;
   cursor: pointer;
-  @include mq(md){
-      display: inline-block;
+  @include mq(md) {
+    display: inline-block;
   }
 }
 
@@ -418,7 +417,7 @@
   border-radius: 50%;
   background: #000;
   opacity: 0;
-  transition: .3s;
+  transition: 0.3s;
 }
 
 .form-radio input:checked + span::after {
