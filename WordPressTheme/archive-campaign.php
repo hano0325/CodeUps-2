@@ -48,11 +48,13 @@
                         <?php if (have_posts()) : ?>
                         <?php while (have_posts()) : the_post(); ?>
                         <?php
-                            $money_price = get_field('money_price');
-                            $discount_price = get_field('discount_price');
+                            $money_group = get_field('money_group');
+                            $money_price = $money_group['money_price'] ?? '';
+                            $discount_price = $money_group['discount_price'] ?? '';
+                            $time_group = get_field('time_group');
+                            $start_time = $time_group['start_time'] ?? '';
+                            $end_time = $time_group['end_time'] ?? '';
                             $campaign_text = get_field('campaign_text');
-                            $start_time = get_field('start_time');
-                            $end_time = get_field('end_time');
                         ?>
                         <li class="tab__campaign-card">
                             <div class="tab__campaign-container">
@@ -82,10 +84,10 @@
                                         </p>
                                         <div class="tab__campaign-fee">
                                             <p class="tab__campaign-discount">
-                                                ¥<?php echo $money_price; ?>
+                                                ¥<?php echo number_format($money_price); ?>
                                             </p>
                                             <p class="tab__campaign-main">
-                                                ¥<?php echo $discount_price; ?>
+                                                ¥<?php echo number_format($discount_price);  ?>
                                             </p>
                                         </div>
                                         <p class="tab__campaign-text-main u-desktop">

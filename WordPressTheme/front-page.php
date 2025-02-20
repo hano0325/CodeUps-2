@@ -51,16 +51,17 @@
                     <div class="campaign__swiper swiper js-campaign-swiper">
                         <div class="campaign__wrapper swiper-wrapper">
                             <?php
-                            $args = [
-                            "post_type" => "campaign",
-                            "posts_per_page" => 4,
-                            ];
-                            $the_query = new WP_Query($args);
-                            if ($the_query->have_posts()) :
-                            while ($the_query->have_posts()) : $the_query->the_post();
-                            $discount_price = get_field('discount_price');
-                            $main_price = get_field('money_price');
-                                ?>
+                                $args = [
+                                "post_type" => "campaign",
+                                "posts_per_page" => 4,
+                                ];
+                                $the_query = new WP_Query($args);
+                                if ($the_query->have_posts()) :
+                                while ($the_query->have_posts()) : $the_query->the_post();
+                                $money_group = get_field('money_group');
+                                $money_price = $money_group['money_price'] ?? '';
+                                $discount_price = $money_group['discount_price'] ?? '';
+                            ?>
                             <div class="campaign__slide swiper-slide">
                                 <img src="<?php echo esc_url(get_the_post_thumbnail_url() ?: get_template_directory_uri() . '/assets/images/common/cats.jpg'); ?>"
                                     alt="猫の画像" />
@@ -82,10 +83,10 @@
                                         </p>
                                         <div class="campaign__fee">
                                             <p class="campaign__discount">
-                                                ¥<?php echo esc_html($main_price); ?>
+                                                ¥<?php echo number_format($money_price); ?>
                                             </p>
                                             <p class="campaign__main">
-                                                ¥<?php echo esc_html($discount_price); ?>
+                                                ¥<?php echo number_format($discount_price); ?>
                                             </p>
                                         </div>
                                     </div>
@@ -245,17 +246,18 @@
                 </div>
                 <ul class="voice__cards cards-voice">
                     <?php
-                            $args = [
-                                "post_type" => "voice",
-                                "posts_per_page" => 2,
-                            ];
-                            $voice_query = new WP_Query($args);
-                            if ($voice_query->have_posts()) :
-                            while ($voice_query->have_posts()) : $voice_query->the_post();
-                            $voice_age = get_field('voice_age');
-                            $voice_gender = get_field('voice_gender');
-                            $voice_text = get_field('voice_text');
-                            ?>
+                        $args = [
+                            "post_type" => "voice",
+                            "posts_per_page" => 2,
+                        ];
+                        $voice_query = new WP_Query($args);
+                        if ($voice_query->have_posts()) :
+                        while ($voice_query->have_posts()) : $voice_query->the_post();
+                        $voice_group = get_field('voice_group');
+                        $voice_age = $voice_group['voice_age'] ?? '';
+                        $voice_gender = $voice_group['voice_gender'] ?? '';
+                        $voice_text = get_field('voice_text');
+                    ?>
                     <li class="cards-voice__card card-voice">
                         <div class="card-voice__container">
                             <div class="card-voice__container-text">
@@ -325,15 +327,16 @@
                     </div>
                     <ul class="price__items">
                         <?php
-                        $args = [
-                            "post_type" => "fee",
-                            "order" => "ASC"
-                        ];
-                        $price_query = new WP_Query($args);
-                        if ($price_query->have_posts()) :
+                            $args = [
+                                "post_type" => "fee",
+                                "order" => "ASC"
+                            ];
+                            $price_query = new WP_Query($args);
+                            if ($price_query->have_posts()) :
                             while ($price_query->have_posts()) : $price_query->the_post();
-                                $price_list = SCF::get('price_list');
-                                if (!empty($price_list)) : ?>
+                            $price_list = SCF::get('price_list');
+                            if (!empty($price_list)) :
+                        ?>
                         <li class="price__item">
                             <div class="price__item-container">
                                 <p class="price__item-title"><?php the_title(); ?></p>
@@ -344,7 +347,7 @@
                                             <?php echo esc_html($price['course_name']); ?>
                                         </p>
                                         <p class="price__item-price">
-                                            ¥<?php echo esc_html($price['course_price']); ?>
+                                            ¥<?php echo number_format(esc_html($price['course_price'])); ?>
                                         </p>
                                     </div>
                                     <?php endforeach; ?>

@@ -48,8 +48,9 @@
                         <?php if (have_posts()): ?>
                         <?php while (have_posts()): the_post(); ?>
                         <?php
-                            $voice_age = get_field('voice_age');
-                            $voice_gender = get_field('voice_gender');
+                            $voice_group = get_field('voice_group');
+                            $voice_age = $voice_group['voice_age'] ?? '';
+                            $voice_gender = $voice_group['voice_gender'] ?? '';
                             $voice_text = get_field('voice_text');
                         ?>
                         <li class="tab-voice__card card-voice">

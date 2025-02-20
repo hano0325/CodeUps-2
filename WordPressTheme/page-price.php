@@ -19,12 +19,12 @@
     <section id="test" class=" price-lower price-lower-layout">
         <div class="price-lower__inner inner">
             <?php
-            $counter = 1;
-            $args = [
-            "post_type" => "fee",
-            "order" => "ASC",
-             ];
-            $the_query = new WP_Query($args);
+                $counter = 1;
+                $args = [
+                "post_type" => "fee",
+                "order" => "ASC",
+                ];
+                $the_query = new WP_Query($args);
             ?>
             <?php if ($the_query->have_posts()) : ?>
             <?php while ($the_query->have_posts()) : $the_query->the_post(); ?>
@@ -41,8 +41,8 @@
                 </div>
                 <table class="list-price__table">
                     <?php
-                $price_list = SCF::get('price_list');
-                ?>
+                        $price_list = SCF::get('price_list');
+                    ?>
                     <?php if (!empty($price_list)) : ?>
                     <?php foreach ($price_list as $price) : ?>
                     <tbody>
@@ -57,7 +57,8 @@
                             }
                             ?>
                             </td>
-                            <td class="list-price__price">¥<?php echo esc_html($price['course_price']); ?>
+                            <td class="list-price__price">
+                                ¥<?php echo number_format(esc_html($price['course_price'])); ?>
                             </td>
                         </tr>
                     </tbody>
