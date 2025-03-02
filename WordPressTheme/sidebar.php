@@ -152,7 +152,7 @@
                     while ($query->have_posts()) :
                         $query->the_post();
                         $money_price = get_field('money_price');
-                        $discount_price = get_field('discount_price');
+                        $campaign_price = get_field('campaign_price');
                     ?>
                     <li class="blog-lower-campaign__content-card">
                         <a href="<?php echo esc_url(home_url('campaign')); ?>">
@@ -176,11 +176,13 @@
                                             全部コミコミ(お一人様)
                                         </p>
                                         <div class="blog-lower-campaign__fee">
-                                            <p class="blog-lower-campaign__discount">
-                                                ¥<?php echo esc_html($money_price); ?>
+                                            <?php if ($money_price): ?>
+                                            <p class="tab__campaign-discount">
+                                                ¥<?php echo number_format($money_price); ?>
                                             </p>
+                                            <?php endif; ?>
                                             <p class="blog-lower-campaign__main">
-                                                ¥<?php echo esc_html($discount_price); ?>
+                                                ¥<?php echo esc_html($campaign_price); ?>
                                             </p>
                                         </div>
                                     </div>

@@ -60,7 +60,7 @@
                                 while ($the_query->have_posts()) : $the_query->the_post();
                                 $money_group = get_field('money_group');
                                 $money_price = $money_group['money_price'] ?? '';
-                                $discount_price = $money_group['discount_price'] ?? '';
+                                $campaign_price = $money_group['campaign_price'] ?? '';
                             ?>
                             <div class="campaign__slide swiper-slide">
                                 <img src="<?php echo esc_url(get_the_post_thumbnail_url() ?: get_template_directory_uri() . '/assets/images/common/cats.jpg'); ?>"
@@ -82,11 +82,13 @@
                                             全部コミコミ(お一人様)
                                         </p>
                                         <div class="campaign__fee">
-                                            <p class="campaign__discount">
+                                            <?php if ($money_price): ?>
+                                            <p class="tab__campaign-discount">
                                                 ¥<?php echo number_format($money_price); ?>
                                             </p>
+                                            <?php endif; ?>
                                             <p class="campaign__main">
-                                                ¥<?php echo number_format($discount_price); ?>
+                                                ¥<?php echo number_format($campaign_price); ?>
                                             </p>
                                         </div>
                                     </div>

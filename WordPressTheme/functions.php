@@ -432,3 +432,132 @@ add_filter( 'get_the_archive_title', function ($title) {
 	}
     return $title;
 });
+
+// タクソノミー絞り込み
+function add_admin_taxonomy_dropdown( $post_type ) {
+	$admin_post_types = get_post_types();
+	foreach ( $admin_post_types as $admin_post_type ) {
+		if ( $admin_post_type === $post_type ) {
+			$taxonomies = get_object_taxonomies( $admin_post_type, 'object' );
+			foreach ( $taxonomies as $taxonomy ) {
+				if ( 'post_format' !== $taxonomy->name && 'category' !== $taxonomy->name ) {
+					if ( 'post_tag' === $taxonomy->name ) {
+						wp_dropdown_categories(
+							array(
+								'show_option_all' => 'タグ一覧',
+								'orderby'         => 'name',
+								'hide_if_empty'   => true,
+								'selected'        => get_query_var( 'tag' ),
+								'name'            => 'tag',
+								'taxonomy'        => 'post_tag',
+								'value_field'     => 'slug',
+							)
+						);
+					} else {
+						wp_dropdown_categories(
+							array(
+								'show_option_all' => $taxonomy->label . '一覧',
+								'orderby'         => 'name',
+								'selected'        => get_query_var( $taxonomy->name ),
+								'hide_if_empty'   => true,
+								'name'            => $taxonomy->name,
+								'taxonomy'        => $taxonomy->name,
+								'value_field'     => 'slug',
+							)
+						);
+					}
+				}
+			}
+		}
+	}
+}
+add_action( 'restrict_manage_posts', 'add_admin_taxonomy_dropdown', 10, 2 );
+
+
+function enqueue_admin_styles() {
+    wp_enqueue_style(
+        'custom-admin-style',
+        get_template_directory_uri() . '/assets/css/dashboard.css',
+        array(),
+        '1.0'
+    );
+}
+add_action('admin_enqueue_scripts', 'enqueue_admin_styles');
+
+function add_dashboard_widgets() {
+    wp_add_dashboard_widget(
+        'quick_action_dashboard_widget', // ウィジェットのスラッグ名
+        'ショートカットメニュー', // ウィジェットに表示するタイトル
+        'dashboard_widget_function' // 実行する関数
+    );
+}
+add_action( 'wp_dashboard_setup', 'add_dashboard_widgets' );
+add_action( 'admin_enqueue_scripts', 'enqueue_admin_styles' );
+
+
+function dashboard_widget_function() {
+    ?>
+<ul class="custom_widget">
+    <li>
+        <a href="post-new.php">
+            <div class="dashboard dashicons-admin-post"></div>
+            <p>新しいブログ記事を書く</p>
+        </a>
+    </li>
+    <li>
+        <a href="edit.php">
+            <div class="dashboard dashicons-admin-post"></div>
+            <p>ブログ記事一覧</p>
+        </a>
+    </li>
+    <li>
+        <a href="post-new.php?post_type=voice">
+            <div class="dashboard dashicons-format-chat"></div>
+            <p>新しいお客様の声の投稿をする</p>
+        </a>
+    </li>
+    <li>
+        <a href="edit.php?post_type=voice">
+            <div class="dashboard dashicons-format-chat"></div>
+            <p>お客様の声一覧</p>
+        </a>
+    </li>
+    <li>
+        <a href="post-new.php?post_type=campaign">
+            <div class="dashboard dashicons-edit"></div>
+            <p>新しいキャンペーンを作成する</p>
+        </a>
+    </li>
+    <li>
+        <a href=" edit.php?post_type=campaign">
+            <div class="dashboard dashicons-edit"></div>
+            <p>キャンペーン一覧</p>
+        </a>
+    </li>
+    <li>
+        <a href="post-new.php?post_type=fee">
+            <div class="dashboard dashicons-media-text"></div>
+            <p>新しく料金表を作成する</p>
+        </a>
+    </li>
+    <li>
+        <a href="edit.php?post_type=fee">
+            <div class="dashboard dashicons-media-text"></div>
+            <p>料金表一覧</p>
+        </a>
+    </li>
+    <li>
+        <a href="upload.php">
+            <div class="dashboard dashicons-admin-media"></div>
+            <p>メディア</p>
+        </a>
+    </li>
+    <li>
+        <a href="edit.php?post_type=page">
+            <div class="dashboard dashicons-admin-page"></div>
+            <p>固定ページ編集</p>
+        </a>
+    </li>
+</ul>
+<?php
+}

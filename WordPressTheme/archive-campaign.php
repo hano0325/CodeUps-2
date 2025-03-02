@@ -50,7 +50,7 @@
                         <?php
                             $money_group = get_field('money_group');
                             $money_price = $money_group['money_price'] ?? '';
-                            $discount_price = $money_group['discount_price'] ?? '';
+                            $campaign_price = $money_group['campaign_price'] ?? '';
                             $time_group = get_field('time_group');
                             $start_time = $time_group['start_time'] ?? '';
                             $end_time = $time_group['end_time'] ?? '';
@@ -83,11 +83,13 @@
                                             全部コミコミ(お一人様)
                                         </p>
                                         <div class="tab__campaign-fee">
+                                            <?php if ($money_price): ?>
                                             <p class="tab__campaign-discount">
                                                 ¥<?php echo number_format($money_price); ?>
                                             </p>
+                                            <?php endif; ?>
                                             <p class="tab__campaign-main">
-                                                ¥<?php echo number_format($discount_price);  ?>
+                                                ¥<?php echo number_format($campaign_price);  ?>
                                             </p>
                                         </div>
                                         <p class="tab__campaign-text-main u-desktop">
