@@ -1,9 +1,63 @@
 @charset "UTF-8";
 
-.dashboard.dashicons-admin-post {
-        
-        background-color: #000000;
-        display: block;
-        width: 100px;
+.custom_widget-icon{
+        transition: 0.3s;
+        background-color: #DDF0F1;
+}
+
+.custom_widget-icon:hover {
+        opacity: 0.7;
+}
+
+.custom_widget-icon p {
+        font-weight: 400;
+        font-family: "Noto Sans JP";
+        font-size: 15px;
+}
+
+.dashboard {
+        margin-top: 10px;
+}
+
+.custom_widget {
+        display: grid;
+        gap: 20px;
+        grid-template-columns: repeat(2, 1fr);
+        text-align: center;
+
+}
+
+.dashicons-admin-post-shortcut:before,
+.dashicons-format-chat-shortcut:before,
+.dashicons-edit-shortcut:before,
+.dashicons-media-text-shortcut:before,
+.dashicons-admin-media-shortcut:before,
+.dashicons-admin-page-shortcut:before {
+        font-size: 30px;
+        font-family: "Dashicons";
+}
+
+.dashicons-admin-post-shortcut:before  {
+        content: "\f109";
+}
+
+.dashicons-format-chat-shortcut:before {
+        content: "\f125";
+}
+
+.dashicons-edit-shortcut:before  {
+        content: "\f119";
+}
+
+.dashicons-media-text-shortcut:before  {
+        content: "\f123";
+}
+
+.dashicons-admin-media-shortcut:before  {
+        content: "\f104";
+}
+
+.dashicons-admin-page-shortcut:before  {
+        content: "\f105";
 }
 

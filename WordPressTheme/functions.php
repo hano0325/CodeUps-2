@@ -498,63 +498,63 @@ add_action( 'admin_enqueue_scripts', 'enqueue_admin_styles' );
 function dashboard_widget_function() {
     ?>
 <ul class="custom_widget">
-    <li>
+    <li class="custom_widget-icon">
         <a href="post-new.php">
-            <div class="dashboard dashicons-admin-post"></div>
+            <div class="dashboard dashicons-admin-post-shortcut"></div>
             <p>新しいブログ記事を書く</p>
         </a>
     </li>
-    <li>
+    <li class="custom_widget-icon">
         <a href="edit.php">
-            <div class="dashboard dashicons-admin-post"></div>
+            <div class="dashboard dashicons-admin-post-shortcut"></div>
             <p>ブログ記事一覧</p>
         </a>
     </li>
-    <li>
+    <li class="custom_widget-icon">
         <a href="post-new.php?post_type=voice">
-            <div class="dashboard dashicons-format-chat"></div>
+            <div class="dashboard dashicons-format-chat-shortcut"></div>
             <p>新しいお客様の声の投稿をする</p>
         </a>
     </li>
-    <li>
+    <li class="custom_widget-icon">
         <a href="edit.php?post_type=voice">
-            <div class="dashboard dashicons-format-chat"></div>
+            <div class="dashboard dashicons-format-chat-shortcut"></div>
             <p>お客様の声一覧</p>
         </a>
     </li>
-    <li>
+    <li class="custom_widget-icon">
         <a href="post-new.php?post_type=campaign">
-            <div class="dashboard dashicons-edit"></div>
+            <div class="dashboard dashicons-edit-shortcut"></div>
             <p>新しいキャンペーンを作成する</p>
         </a>
     </li>
-    <li>
+    <li class="custom_widget-icon">
         <a href=" edit.php?post_type=campaign">
-            <div class="dashboard dashicons-edit"></div>
+            <div class="dashboard dashicons-edit-shortcut"></div>
             <p>キャンペーン一覧</p>
         </a>
     </li>
-    <li>
+    <li class="custom_widget-icon">
         <a href="post-new.php?post_type=fee">
-            <div class="dashboard dashicons-media-text"></div>
+            <div class="dashboard dashicons-media-text-shortcut"></div>
             <p>新しく料金表を作成する</p>
         </a>
     </li>
-    <li>
+    <li class="custom_widget-icon">
         <a href="edit.php?post_type=fee">
-            <div class="dashboard dashicons-media-text"></div>
+            <div class="dashboard dashicons-media-text-shortcut"></div>
             <p>料金表一覧</p>
         </a>
     </li>
-    <li>
+    <li class="custom_widget-icon">
         <a href="upload.php">
-            <div class="dashboard dashicons-admin-media"></div>
+            <div class="dashboard dashicons-admin-media-shortcut"></div>
             <p>メディア</p>
         </a>
     </li>
-    <li>
+    <li class="custom_widget-icon">
         <a href="edit.php?post_type=page">
-            <div class="dashboard dashicons-admin-page"></div>
+            <div class="dashboard dashicons-admin-page-shortcut"></div>
             <p>固定ページ編集</p>
         </a>
     </li>
