@@ -151,8 +151,9 @@
                     <?php
                     while ($query->have_posts()) :
                         $query->the_post();
-                        $money_price = get_field('money_price');
-                        $campaign_price = get_field('campaign_price');
+                        $money_group = get_field('money_group');
+                        $money_price = $money_group['money_price'] ?? '';
+                        $campaign_price = $money_group['campaign_price'] ?? '';
                     ?>
                     <li class="blog-lower-campaign__content-card">
                         <a href="<?php echo esc_url(home_url('campaign')); ?>">
@@ -178,12 +179,14 @@
                                         <div class="blog-lower-campaign__fee">
                                             <?php if ($money_price): ?>
                                             <p class="tab__campaign-discount">
-                                                ¥<?php echo number_format($money_price); ?>
+                                                ¥<?php echo esc_html($money_price); ?>
                                             </p>
                                             <?php endif; ?>
+                                            <?php if ($campaign_price): ?>
                                             <p class="blog-lower-campaign__main">
                                                 ¥<?php echo esc_html($campaign_price); ?>
                                             </p>
+                                            <?php endif; ?>
                                         </div>
                                     </div>
                                 </div>

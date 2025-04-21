@@ -75,7 +75,7 @@
                                             ?>
                                         </p>
                                         <p class="tab__campaign-text-box-subtitle">
-                                            <?php echo get_the_title(); ?>
+                                            <?php echo the_title(); ?>
                                         </p>
                                     </div>
                                     <div class="tab__campaign-money">
@@ -89,7 +89,7 @@
                                             </p>
                                             <?php endif; ?>
                                             <p class="tab__campaign-main">
-                                                ¥<?php echo number_format($campaign_price);  ?>
+                                                ¥<?php echo number_format($campaign_price); ?>
                                             </p>
                                         </div>
                                         <p class="tab__campaign-text-main u-desktop">
